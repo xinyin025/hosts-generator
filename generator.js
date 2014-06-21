@@ -19,6 +19,11 @@ fs.readFile(config.sitelistpath, 'utf8', function(err, data) {
 
     async.eachSeries(sites, function(site, callback) {
 
+        if (site === '') {
+            // skip empty lines
+            return callback();
+        }
+
         setTimeout(function() {
 
             var question = dns.Question({
@@ -40,7 +45,7 @@ fs.readFile(config.sitelistpath, 'utf8', function(err, data) {
             req.on('message', function (err, answer) {
                 answer.answer.forEach(function (addr) {
                     // console.log(addr.address);
-                    hosts += addr.address + '\t' + site;
+                    hosts += addr.address + '\t' + site + '\n';
                 });
             });
 
