@@ -1,0 +1,16 @@
+module.exports = {
+
+    // DNS server to query from
+    server: '8.8.8.8',
+
+    // sites list path
+    sitelistpath: './test/sites.list',
+
+    // output file path
+    output: './test/hosts.list',
+
+    // wait n millisec before next query, set to a speed that target DNS could handle, we do not use it as DoS tool.
+    // set to 0 to disable it.
+    wait: 100
+
+};
