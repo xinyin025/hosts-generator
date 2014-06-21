@@ -2,7 +2,7 @@ module.exports = {
 
     // DNS server to query from
     server: '8.8.8.8',
-    port: 53
+    port: 53,
 
     // sites list path
     sitelistpath: './test/sites.list',
