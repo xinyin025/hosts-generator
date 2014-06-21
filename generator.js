@@ -33,7 +33,7 @@ fs.readFile(config.sitelistpath, 'utf8', function(err, data) {
 
             var req = dns.Request({
                 question: question,
-                server: { address: config.server, port: 53, type: 'udp' },
+                server: { address: config.server, port: config.port, type: 'udp' },
                 timeout: 1000
             });
 
