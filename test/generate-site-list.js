@@ -18,8 +18,11 @@ fs.readFile('./hosts.list', 'utf8', function(err, data) {
     lines.forEach(function(line) {
         // ignore empty lines and lines starts with '#'
         if (line !== '' && line.indexOf('#') !== 0) {
-            console.log(line.split('\t'));
-            sites += line.split('\t')[1] + '\n';
+            // console.log(line.split('\t'));
+			if (line.split('\t')[1]) {
+				sites += line.split('\t')[1] + '\n';
+			}
+            
         }
     });
 
