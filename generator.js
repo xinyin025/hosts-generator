@@ -37,6 +37,8 @@ fs.readFile(config.sitelistpath, 'utf8', function(err, data) {
                 timeout: 1000
             });
 
+            var badips = badip(config.badipslist);
+
             req.on('timeout', function () {
                 console.log('Timeout in making request for ' + site);
                 // callback();
@@ -45,7 +47,11 @@ fs.readFile(config.sitelistpath, 'utf8', function(err, data) {
             req.on('message', function (err, answer) {
                 answer.answer.forEach(function (addr) {
                     // console.log(addr.address);
-                    hosts += addr.address + '\t' + site + '\n';
+                    if (badips.indexOf(addr)) {
+                        console.log('Skipped bad IP: ' + addr);
+                    } else {
+                        hosts += addr.address + '\t' + site + '\n';
+                    }
                 });
             });
 
@@ -68,3 +74,19 @@ fs.readFile(config.sitelistpath, 'utf8', function(err, data) {
     });
 
 });
+
+function badip(listfile) {
+
+    fs.readFile(listfile, 'utf8', function(err, list) {
+        if (err) throw err;
+        var data = list.split('\n');
+        var ips = [];
+        data.forEach(function(ip) {
+            if (ip && ip.indexOf('#') === -1) {
+                ips.push(ip);
+            }
+        });
+        return ips;
+    });
+
+}
