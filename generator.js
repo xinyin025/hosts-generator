@@ -39,7 +39,7 @@ fs.readFile(config.sitelistpath, 'utf8', function(err, data) {
 
             req.on('timeout', function () {
                 console.log('Timeout in making request for ' + site);
-                callback();
+                // callback();
             });
 
             req.on('message', function (err, answer) {
